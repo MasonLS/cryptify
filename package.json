@@ -6,7 +6,9 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2"
   },
   "scripts": {
@@ -14,5 +16,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MasonLS/cryptify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MasonLS/cryptify/issues"
+  },
+  "homepage": "https://github.com/MasonLS/cryptify#readme"
 }
