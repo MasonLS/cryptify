@@ -9,7 +9,7 @@ class App extends Component {
       selectedArtist: null
     }
   }
-  
+
   render() {
     return (
       <Grid>
