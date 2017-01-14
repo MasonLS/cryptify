@@ -1,8 +1,9 @@
 var express = require('express');
 var request = require('request');
 var auth = require('./routes/auth');
+var artists = require('./routes/artists');
 var session = require('client-sessions');
-
+import Promise from 'bluebird';
 var app = express();
 
 var generateRandomString = function(length) {
@@ -28,6 +29,8 @@ app.use(session({
 }));
 
 app.use('/auth', auth);
+
+app.use('/artists', artists);
 
 console.log('Listening on 3001');
 app.listen(3001);
