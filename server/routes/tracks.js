@@ -3,10 +3,31 @@ const request = require('request');
 
 const router = express.Router();
 
-// get a user's top artists
+// get a track's hash
+router.get('/hash/:trackId', (req, res, next) => {
+  const options = {
+    url: 'https://api.spotify.com/v1/audio-features',
+    headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
+    qs: {
+      ids: req.params.trackId
+    }
+  };
+
+  // get the track's audio features from Spotify
+  request.get(options, (error, response, body) => {
+    if(error) {
+      next(error);
+    } else {
+      // hash the track based on it audio features
+      res.send(body);
+    }
+  });
+});
+
+// get a user's top tracks
 router.get('/top', (req, res, next) => {
   const options = {
-    url: 'https://api.spotify.com/v1/me/top/artists',
+    url: 'https://api.spotify.com/v1/me/top/tracks',
     headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
     qs: {
       limit: 50
@@ -22,14 +43,14 @@ router.get('/top', (req, res, next) => {
   });
 });
 
-// keyword search artists
-router.get('/search/:artistName', (req, res, next) => {
-  const artistName = req.params.artistName.replace(' ', '%20');
+// keyword search tracks
+router.get('/search/:trackName', (req, res, next) => {
+  const trackName = req.params.trackName.replace(' ', '%20');
   const options = {
     url: 'https://api.spotify.com/v1/search',
     headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
     qs: {
-      q: artistName,
+      q: trackName,
       type: 'artist',
       limit: 30,
       market: 'from_token'

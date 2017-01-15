@@ -1,16 +1,19 @@
-var express = require('express');
-var request = require('request');
-var auth = require('./routes/auth');
-var artists = require('./routes/artists');
-var session = require('client-sessions');
-import Promise from 'bluebird';
-var app = express();
+const express = require('express');
+const request = require('request');
+const auth = require('./routes/auth');
+const artists = require('./routes/artists');
+const tracks = require('./routes/artists');
+const session = require('client-sessions');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
-var generateRandomString = function(length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const app = express();
 
-  for (var i = 0; i < length; i++) {
+const generateRandomString = function(length) {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
@@ -28,9 +31,14 @@ app.use(session({
   ephemeral: true
 }));
 
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
 app.use('/auth', auth);
-
 app.use('/artists', artists);
+app.use('/tracks', tracks);
 
-console.log('Listening on 3001');
-app.listen(3001);
+app.listen(3001, () => {
+  console.log('Server listening on port 3001...');
+});

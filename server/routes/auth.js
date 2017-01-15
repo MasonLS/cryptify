@@ -46,6 +46,7 @@ router.get('/callback', function(req, res) {
           req.session.user.access_token = access_token;
           req.session.user.refresh_token = refresh_token;
           res.redirect('http://localhost:3000/home');
+          console.log(access_token);
         });
       }
     });
