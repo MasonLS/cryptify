@@ -3,8 +3,8 @@ const request = require('request');
 
 const router = express.Router();
 
-// get a track's hash
-router.get('/hash/:trackId', (req, res, next) => {
+// get a track's password
+router.get('/password/:trackId', (req, res, next) => {
   const options = {
     url: 'https://api.spotify.com/v1/audio-features',
     headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },

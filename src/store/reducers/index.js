@@ -1,10 +1,12 @@
-import initialState from './state';
+import { combineReducers } from 'redux';
+import password from './password';
+import top from './top';
+import search from './search';
 
-function rootReducer(state = initialState, action) {
-  switch(action.type) {
-    default:
-      return state;
-  }
-}
+const rootReducer = combineReducers({
+    password,
+    search,
+    top
+});
 
 export default rootReducer;
