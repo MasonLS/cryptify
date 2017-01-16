@@ -22,6 +22,13 @@ export function setSelectedTrack(track) {
   }
 }
 
+export function setTrackWhy(why) {
+  return {
+    type: actionTypes.SET_PW_WHY,
+    why
+  }
+}
+
 export function fetchUserTopTracks() {
   return function(dispatch) {
     dispatch(requestFromApi(actionTypes.FETCH_TRACKS_REQUEST));
@@ -33,6 +40,8 @@ export function fetchUserTopTracks() {
     .then(response => response.json())
     .then(json => {
       dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, json.items));
+      dispatch(setSelectedTrack(json.items[0]));
+      dispatch(setTrackWhy('vocals'));
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_TRACKS_FAILURE, error));
@@ -51,6 +60,8 @@ export function fetchArtistTopTracks(artistId) {
     .then(response => response.json())
     .then(json => {
       dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, json.tracks));
+      dispatch(setSelectedTrack(json.tracks[0]));
+      dispatch(setTrackWhy('vocals'));
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_TRACKS_FAILURE, error));
@@ -70,6 +81,8 @@ export function searchTracks(searchTerm) {
     .then(json => {
       const tracks = json.tracks.items;
       dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, tracks));
+      dispatch(setSelectedTrack(tracks[0]));
+      dispatch(setTrackWhy('vocals'));
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_TRACKS_FAILURE, error));
