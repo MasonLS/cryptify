@@ -7,6 +7,7 @@ export default {
   },
   search: {
     type: 'tracks',
+    term: '',
     results: [],
     isFetching: false,
     errorFetching: false
