@@ -5,7 +5,7 @@ import TrackForm from './track-form';
 class TrackDetail extends Component {
   componentDidUpdate() {
       const audio = this.refs.preview;
-      if (this.props.trackPlaying === this.props.track.id) {
+      if (this.props.trackPlaying === this.props.password.track.id) {
         audio.load();
         audio.play();
       } else {
@@ -14,8 +14,17 @@ class TrackDetail extends Component {
   }
 
   render() {
-    const { track, why, trackPlaying, togglePreview, setTrackWhy } = this.props;
+    const {
+      password,
+      trackPlaying,
+      togglePreview,
+      setTrackWhy,
+      generatePassword
+    } = this.props;
+    const track = password.track;
+
     if (!track) return null;
+
     return (
       <Row>
         <Col sm={6}>
@@ -33,7 +42,7 @@ class TrackDetail extends Component {
           </Row>
         </Col>
         <Col sm={6}>
-          <TrackForm why={why} setTrackWhy={setTrackWhy} />
+          <TrackForm password={password} setTrackWhy={setTrackWhy} generatePassword={generatePassword} />
         </Col>
       </Row>
     );

@@ -1,11 +1,10 @@
 import TrackDetail from '../components/track-detail';
 import { connect } from 'react-redux';
-import { setTrackPlaying, setTrackWhy } from '../store/actions/creators';
+import { setTrackPlaying, setTrackWhy, fetchPassword } from '../store/actions/creators';
 
 function mapStateToProps(state) {
   return {
-    track: state.password.track,
-    why: state.password.why,
+    password: state.password,
     trackPlaying: state.tracks.trackPlaying,
   };
 }
@@ -21,6 +20,9 @@ function mapDispatchToProps(dispatch) {
     },
     setTrackWhy: (why) => {
       dispatch(setTrackWhy(why));
+    },
+    generatePassword: (trackId, why) => {
+      dispatch(fetchPassword(trackId, why));
     }
   };
 }
