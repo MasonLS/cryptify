@@ -29,6 +29,12 @@ export function setTrackWhy(why) {
   }
 }
 
+export function togglePasswordModal() {
+  return {
+    type: actionTypes.TOGGLE_PW_MODAL
+  }
+}
+
 export function fetchUserTopTracks() {
   return function(dispatch) {
     dispatch(requestFromApi(actionTypes.FETCH_TRACKS_REQUEST));
@@ -102,6 +108,7 @@ export function fetchPassword(trackId, why) {
     .then(response => response.json())
     .then(password => {
       dispatch(receiveFromApi(actionTypes.FETCH_PW_SUCCESS, password));
+      dispatch(togglePasswordModal());
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_PW_FAILURE, error));

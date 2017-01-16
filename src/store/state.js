@@ -4,7 +4,8 @@ export default {
     why: 'vocals',
     hash: null,
     isFetching: false,
-    errorFetching: false
+    errorFetching: false,
+    showModal: false
   },
   tracks: {
     trackPlaying: '',
