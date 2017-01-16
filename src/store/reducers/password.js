@@ -6,7 +6,7 @@ function password(state = initialState.password, action) {
     case actionTypes.SET_PW_TRACK:
       return {
         ...initialState.password,
-        info: action.track
+        track: action.track
       };
     case actionTypes.FETCH_PW_REQUEST:
       return {

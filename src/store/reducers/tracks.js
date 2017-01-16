@@ -1,26 +1,31 @@
 import initialState from '../state';
 import actionTypes from '../actions/types';
 
-function top(state = initialState.top, action) {
+function tracks(state = initialState.tracks, action) {
   switch(action.type) {
-    case actionTypes.SET_TOP_TYPE:
+    case actionTypes.SET_TRACK_PLAYING:
       return {
         ...state,
-        type: action.topType
+        trackPlaying: action.trackId
       };
-    case actionTypes.FETCH_TOP_REQUEST:
+    case actionTypes.SET_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.searchTerm
+      };
+    case actionTypes.FETCH_TRACKS_REQUEST:
       return {
         ...state,
         isFetching: true,
         errorFetching: false
       };
-    case actionTypes.FETCH_TOP_SUCCESS:
+    case actionTypes.FETCH_TRACKS_SUCCESS:
       return {
         ...state,
-        all: action.data,
+        tracks: action.data,
         isFetching: false
       };
-    case actionTypes.FETCH_TOP_FAILURE:
+    case actionTypes.FETCH_TRACKS_FAILURE:
       return {
         ...state,
         isFetching: false,
@@ -31,4 +36,4 @@ function top(state = initialState.top, action) {
   }
 }
 
-export default top;
+export default tracks;

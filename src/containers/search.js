@@ -1,24 +1,23 @@
 import Search from '../components/search';
 import { connect } from 'react-redux';
-import { setSearchType, setSearchTerm, fetchSearch } from '../store/actions/creators';
+import { setSearchTerm, searchTracks, fetchUserTopTracks } from '../store/actions/creators';
 
 function mapStateToProps(state) {
   return {
-    searchType: state.search.type,
-    searchTerm: state.search.term
+    searchTerm: state.tracks.searchTerm
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleTypeChange: (searchType) => {
-      dispatch(setSearchType(searchType));
-    },
-    handleInputChange: (searchTerm) => {
+    handleSearchTermChange: (searchTerm) => {
       dispatch(setSearchTerm(searchTerm));
     },
-    handleSearch: (searchType, searchTerm) => {
-      dispatch(fetchSearch(searchType, searchTerm));
+    handleSearch: (searchTerm) => {
+      dispatch(searchTracks(searchTerm));
+    },
+    handleMyTopTracks: () => {
+      dispatch(fetchUserTopTracks());
     }
   };
 }

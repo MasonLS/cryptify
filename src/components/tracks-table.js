@@ -4,13 +4,10 @@ import Track from './track';
 
 class TracksTable extends Component {
   componentDidMount() {
-    this.props.fetchTopUserTracks();
+    this.props.fetchUserTopTracks();
   }
 
   render() {
-    console.log('HEllow')
-    const tracks = this.props.searchResults.length > 0 ? this.props.searchResults : this.props.topUserTracks;
-
     return (
       <Table responsive hover>
         <thead>
@@ -24,7 +21,7 @@ class TracksTable extends Component {
         </thead>
         <tbody>
           {
-            tracks.map(track => <Track track={track} key={track.id} />)
+            this.props.tracks.map(track => <Track track={track} trackPlaying={this.props.trackPlaying} selectTrack={this.props.selectTrack} togglePreview={this.props.togglePreview} fetchArtistTopTracks={this.props.fetchArtistTopTracks} key={track.id} />)
           }
         </tbody>
       </Table>
