@@ -12,9 +12,9 @@ const Search = ({
       <FormControl type="text" value={searchTerm} onChange={(e) => { handleSearchTermChange(e.target.value) }}/>
     </FormGroup>
     {' '}
-    <Button onClick={() => { handleSearch(searchTerm) }}>Search tracks</Button>
+    <Button type="submit" onClick={() => { handleSearch(searchTerm) }}>Search tracks</Button>
     {' '}
-    <Button type="submit">My top tracks</Button>
+    <Button onClick={() => { handleMyTopTracks() }}>My top tracks</Button>
   </Form>
 );
 
