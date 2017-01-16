@@ -90,10 +90,10 @@ export function searchTracks(searchTerm) {
   }
 }
 
-export function fetchPassword(trackId) {
+export function fetchPassword(trackId, why) {
   return function(dispatch) {
     dispatch(requestFromApi(actionTypes.FETCH_PW_REQUEST));
-    const uri = '/tracks/password/' + trackId;
+    const uri = '/tracks/password/' + trackId + '/' + why;
 
     return fetch(uri, {
       accept: 'application/json',

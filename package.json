@@ -54,6 +54,7 @@
     "client-sessions": "^0.7.0",
     "history": "^4.5.1",
     "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4",
     "morgan": "^1.7.0",
     "querystring": "^0.2.0",
     "react": "^15.4.2",
@@ -67,7 +68,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "server": "nodemon ./server/index.js",
+    "server": "nodemon --watch server ./server/index.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },

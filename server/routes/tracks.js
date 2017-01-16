@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
-
+const crypto = require('crypto');
+const _ = require('lodash');
 const router = express.Router();
 
 // get a user's top tracks
@@ -65,8 +66,8 @@ router.get('/:artistId/top-tracks', (req, res, next) => {
 });
 
 // get a track's password
-router.get('/password/:trackId', (req, res, next) => {
-  const options = {
+router.get('/password/:trackId/:why', (req, res, next) => {
+  const audioFeatureOptions = {
     url: 'https://api.spotify.com/v1/audio-features',
     headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
     qs: {
@@ -75,12 +76,37 @@ router.get('/password/:trackId', (req, res, next) => {
   };
 
   // get the track's audio features from Spotify
-  request.get(options, (error, response, body) => {
+  request.get(audioFeatureOptions, (error, response, body) => {
     if(error) {
       next(error);
     } else {
-      // hash the track based on it audio features
-      res.send(body);
+      const audioFeatures = JSON.parse(body).audio_features[0];
+      const audioAnalysisOptions = {
+        url: audioFeatures.analysis_url,
+        headers: { 'Authorization': 'Bearer ' + req.session.user.access_token }
+      }
+      request.get(audioAnalysisOptions, (error, response, body) => {
+        if(error) {
+          next(error);
+        } else {
+          const audioAnalysis = JSON.parse(body);
+          const hash = crypto.createHmac('sha256', req.session.user.id);
+          const buffer = new Buffer(_.flatten(audioAnalysis.segments.map(segment => segment.pitches)));
+          hash.update(buffer);
+          let extraParam;
+          if (req.params.why === 'vocals') {
+            extraParam = audioFeatures.speechiness;
+          }
+          if (req.params.why === 'instrumentals') {
+            extraParam = audioFeatures.instrumentalness;
+          }
+          if (req.params.why === 'dancing') {
+            extraParam = audioFeatures.danceability;
+          }
+          hash.update(String(extraParam));
+          res.json(hash.digest('hex').slice(0,16));
+        }
+      })
     }
   });
 });
