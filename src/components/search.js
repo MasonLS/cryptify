@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { FormControl, Button, InputGroup, Glyphicon } from 'react-bootstrap';
 
 const Search = ({
   searchTerm,
@@ -7,15 +7,15 @@ const Search = ({
   handleSearch,
   handleMyTopTracks
 }) => (
-  <Form inline onSubmit={(e) => { e.preventDefault(); handleSearch(searchTerm) }}>
-    <FormGroup>
+  <form onSubmit={(e) => { e.preventDefault(); handleSearch(searchTerm) }}>
+    <InputGroup>
       <FormControl type="text" value={searchTerm} onChange={(e) => { handleSearchTermChange(e.target.value) }}/>
-    </FormGroup>
-    {' '}
-    <Button type="submit" onClick={() => { handleSearch(searchTerm) }}>Search tracks</Button>
-    {' '}
-    <Button onClick={() => { handleMyTopTracks() }}>My top tracks</Button>
-  </Form>
+      <InputGroup.Button>
+        <Button onClick={() => { handleSearch(searchTerm) }}><Glyphicon glyph="search" />{' '}Search tracks</Button>
+        <Button onClick={() => { handleMyTopTracks() }}><Glyphicon glyph="star" />{' '}My top tracks</Button>
+      </InputGroup.Button>
+    </InputGroup>
+  </form>
 );
 
 export default Search;

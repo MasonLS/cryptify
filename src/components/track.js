@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 
 class Track extends Component {
   componentDidUpdate() {
@@ -13,14 +13,18 @@ class Track extends Component {
   }
 
   render() {
-    const track = this.props.track;
+    const {
+      track,
+      trackPlaying
+    } = this.props;
+
     return (
       <tr>
         <audio ref="preview" src={track.preview_url} />
-        <td><Button onClick={() => { this.props.togglePreview(track.id, this.props.trackPlaying) }}>Play sample</Button></td>
-        <td><a href="#" onClick={() => { this.props.selectTrack(track) }}>{track.name}</a></td>
+        <td><a href="#" onClick={(e) => { e.preventDefault(); this.props.togglePreview(track.id, this.props.trackPlaying) }}><Glyphicon glyph={track.id === trackPlaying ? 'stop' : 'play'} /></a></td>
+        <td><a href="#" onClick={(e) => { e.preventDefault(); this.props.selectTrack(track) }}>{track.name}</a></td>
         <td>
-          <a href="#" onClick={() => { this.props.fetchArtistTopTracks(track.artists[0].id) }} key={track.artists[0].id}>{track.artists[0].name}</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); this.props.fetchArtistTopTracks(track.artists[0].id) }} key={track.artists[0].id}>{track.artists[0].name}</a>
         </td>
         <td>{track.album.name}</td>
         <td>{track.popularity}</td>

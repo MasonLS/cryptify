@@ -16,7 +16,7 @@ class TracksTable extends Component {
             <th>Song</th>
             <th>Artist</th>
             <th>Album</th>
-            <th>Strength</th>
+            <th>Password strength</th>
           </tr>
         </thead>
         <tbody>

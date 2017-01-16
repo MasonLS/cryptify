@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Col, Image, Button } from 'react-bootstrap';
+import { Row, Col, Image, Glyphicon, Button, ButtonGroup, FormGroup } from 'react-bootstrap';
 import TrackForm from './track-form';
+import SearchContainer from '../containers/search';
 
 class TrackDetail extends Component {
   componentDidUpdate() {
@@ -19,7 +20,7 @@ class TrackDetail extends Component {
       trackPlaying,
       togglePreview,
       setTrackWhy,
-      generatePassword
+      generatePassword,
     } = this.props;
     const track = password.track;
 
@@ -27,22 +28,25 @@ class TrackDetail extends Component {
 
     return (
       <Row>
-        <Col sm={6}>
-          <Row>
-            <Col sm={6}>
-              <Image responsive src={track.album.images[1].url} />
-            </Col>
-            <Col sm={6}>
-              <h3>Track: {track.name}</h3>
-              <h4>Artist: {track.artists[0].name}</h4>
-              <h4>Album: {track.album.name}</h4>
-              <audio ref="preview" src={track.preview_url} />
-              <Button onClick={() => { togglePreview(track.id, trackPlaying) }}>Play sample</Button>
-            </Col>
-          </Row>
+        <Col sm={4}>
+          <Image responsive src={track.album.images[1].url} />
         </Col>
         <Col sm={6}>
-          <TrackForm password={password} setTrackWhy={setTrackWhy} generatePassword={generatePassword} />
+          <Row>
+            <Col sm={12}>
+              <audio ref="preview" src={track.preview_url} />
+              <p>
+                <h4>Track: {track.name}</h4>
+                <h4>Artist: {track.artists[0].name}</h4>
+                <h4>Album: {track.album.name}</h4>
+              </p>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              <TrackForm trackPlaying={trackPlaying} password={password} generatePassword={generatePassword} togglePreview={togglePreview} setTrackWhy={setTrackWhy} />
+            </Col>
+          </Row>
         </Col>
       </Row>
     );

@@ -7,30 +7,30 @@ function tracks(state = initialState.tracks, action) {
       return {
         ...state,
         trackPlaying: action.trackId
-      };
+      }
     case actionTypes.SET_SEARCH_TERM:
       return {
         ...state,
         searchTerm: action.searchTerm
-      };
+      }
     case actionTypes.FETCH_TRACKS_REQUEST:
       return {
         ...state,
         isFetching: true,
         errorFetching: false
-      };
+      }
     case actionTypes.FETCH_TRACKS_SUCCESS:
       return {
         ...state,
         tracks: action.data,
         isFetching: false
-      };
+      }
     case actionTypes.FETCH_TRACKS_FAILURE:
       return {
         ...state,
         isFetching: false,
         errorFetching: true
-      };
+      }
     default:
       return state;
   }

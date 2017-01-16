@@ -13,6 +13,11 @@ function password(state = initialState.password, action) {
         ...state,
         why: action.why
       }
+    case actionTypes.TOGGLE_PW_MODAL:
+      return {
+        ...state,
+        showModal: !state.showModal
+      }
     case actionTypes.FETCH_PW_REQUEST:
       return {
         ...state,
