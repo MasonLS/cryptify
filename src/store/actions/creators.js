@@ -1,6 +1,27 @@
 import actionTypes from './types';
 import fetch from 'isomorphic-fetch';
 
+export function setTopType(topType) {
+  return {
+    type: actionTypes.SET_TOP_TYPE,
+    topType
+  }
+}
+
+export function setSearchType(searchType) {
+  return {
+    type: actionTypes.SET_SEARCH_TYPE,
+    searchType
+  };
+}
+
+export function setSearchTerm(searchTerm) {
+  return {
+    type: actionTypes.SET_SEARCH_TERM,
+    searchTerm
+  }
+}
+
 export function setSelectedTrack(track) {
   return {
     type: actionTypes.SET_SELECTED_TRACK,
@@ -10,15 +31,16 @@ export function setSelectedTrack(track) {
 
 export function fetchTop(topType) {
   return function(dispatch) {
-    dispatch(requestFromApi(actionTypes.FETCH_TOP_REQUEST, topType));
+    dispatch(requestFromApi(actionTypes.FETCH_TOP_REQUEST));
     const uri = topType === 'tracks' ? '/tracks/top' : '/artists/top';
 
     return fetch(uri, {
-      accept: 'application/json'
+      accept: 'application/json',
+      credentials: 'include'
     })
     .then(response => response.json())
-    .then(top => {
-      dispatch(receiveFromApi(actionTypes.FETCH_TOP_SUCCESS, top));
+    .then(json => {
+      dispatch(receiveFromApi(actionTypes.FETCH_TOP_SUCCESS, json.items));
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_TOP_FAILURE, error));
@@ -29,14 +51,16 @@ export function fetchTop(topType) {
 export function fetchSearch(searchType, searchTerm) {
   return function(dispatch) {
     dispatch(requestFromApi(actionTypes.FETCH_SEARCH_REQUEST, searchType));
-    const uri = encodeURIComponent((searchType === 'tracks' ? '/tracks/search/' : '/artists/search/') + searchTerm);
+    const uri = (searchType === 'tracks' ? '/tracks/search/' : '/artists/search/') + searchTerm;
 
     return fetch(uri, {
-      accept: 'application/json'
+      accept: 'application/json',
+      credentials: 'include'
     })
     .then(response => response.json())
-    .then(results => {
-      dispatch(receiveFromApi(actionTypes.FETCH_SEARCH_SUCCESS, results));
+    .then(json => {
+      const results = json.artists || json.tracks;
+      dispatch(receiveFromApi(actionTypes.FETCH_SEARCH_SUCCESS, results.items));
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_TOP_FAILURE, error));
@@ -62,10 +86,9 @@ export function fetchPassword(trackId) {
   }
 }
 
-function requestFromApi(type, requestFor) {
+function requestFromApi(type) {
     return {
-        type,
-        requestFor
+        type
     }
 }
 

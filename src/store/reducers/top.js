@@ -3,10 +3,14 @@ import actionTypes from '../actions/types';
 
 function top(state = initialState.top, action) {
   switch(action.type) {
+    case actionTypes.SET_TOP_TYPE:
+      return {
+        ...state,
+        type: action.topType
+      };
     case actionTypes.FETCH_TOP_REQUEST:
       return {
         ...state,
-        type: action.requestFor,
         isFetching: true,
         errorFetching: false
       };

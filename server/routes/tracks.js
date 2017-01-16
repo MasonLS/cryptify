@@ -36,6 +36,7 @@ router.get('/top', (req, res, next) => {
 
   request.get(options, (error, response, body) => {
     if(error) {
+      console.log(error);
       next(error);
     } else {
       res.send(body);
@@ -45,13 +46,12 @@ router.get('/top', (req, res, next) => {
 
 // keyword search tracks
 router.get('/search/:trackName', (req, res, next) => {
-  const trackName = req.params.trackName.replace(' ', '%20');
   const options = {
     url: 'https://api.spotify.com/v1/search',
     headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
     qs: {
-      q: trackName,
-      type: 'artist',
+      q: req.params.trackName,
+      type: 'track',
       limit: 30,
       market: 'from_token'
     }

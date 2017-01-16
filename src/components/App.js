@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
+import TracksTableContainer from '../containers/tracks-table';
+import SearchContainer from '../containers/search';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      selectedTrack: null,
-      selectedArtist: null
-    }
-  }
-
   render() {
     return (
       <Grid>
@@ -21,10 +15,12 @@ class App extends Component {
         </Row>
         <Row>
           <Col sm={12}>
+            <SearchContainer />
           </Col>
         </Row>
         <Row>
           <Col sm={12}>
+            <TracksTableContainer />
           </Col>
         </Row>
       </Grid>

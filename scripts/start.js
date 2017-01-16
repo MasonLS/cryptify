@@ -203,6 +203,7 @@ function addMiddleware(devServer) {
       changeOrigin: true,
       ws: true
     });
+
     devServer.use(mayProxy, hpm);
 
     // Listen for the websocket 'upgrade' event and upgrade the connection.
