@@ -2,23 +2,19 @@ import React from 'react';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 const Search = ({
-  searchType,
   searchTerm,
-  handleInputChange,
-  handleTypeChange,
-  handleSearch
+  handleSearchTermChange,
+  handleSearch,
+  handleMyTopTracks
 }) => (
-  <Form inline>
+  <Form inline onSubmit={(e) => { e.preventDefault(); handleSearch(searchTerm) }}>
     <FormGroup>
-      <FormControl type="text" value={searchTerm} onChange={(e) => { handleInputChange(e.target.value) }}/>
+      <FormControl type="text" value={searchTerm} onChange={(e) => { handleSearchTermChange(e.target.value) }}/>
     </FormGroup>
-    <FormGroup>
-      <FormControl componentClass="select" value={searchType} onChange={(e) => { e.preventDefault(); handleTypeChange(e.target.value) }}>
-        <option value="tracks">Tracks</option>
-        <option value="artists">Artists</option>
-      </FormControl>
-    </FormGroup>
-    <Button onClick={() => { handleSearch(searchType, searchTerm) }}>Search</Button>
+    {' '}
+    <Button onClick={() => { handleSearch(searchTerm) }}>Search tracks</Button>
+    {' '}
+    <Button type="submit">My top tracks</Button>
   </Form>
 );
 

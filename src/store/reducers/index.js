@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 import password from './password';
-import top from './top';
-import search from './search';
+import tracks from './tracks';
 
 const rootReducer = combineReducers({
     password,
-    search,
-    top
+    tracks
 });
 
 export default rootReducer;

@@ -5,16 +5,10 @@ export default {
     isFetching: false,
     errorFetching: false
   },
-  search: {
-    type: 'tracks',
-    term: '',
-    results: [],
-    isFetching: false,
-    errorFetching: false
-  },
-  top: {
-    type: 'tracks',
-    all: [],
+  tracks: {
+    trackPlaying: '',
+    searchTerm: '',
+    tracks: [],
     isFetching: false,
     errorFetching: false
   }

@@ -1,7 +1,6 @@
 const express = require('express');
 const request = require('request');
 const auth = require('./routes/auth');
-const artists = require('./routes/artists');
 const tracks = require('./routes/tracks');
 const session = require('client-sessions');
 const morgan = require('morgan');
@@ -34,7 +33,6 @@ app.use(session({
 
 app.use('/auth/', auth);
 app.use('/tracks/', tracks);
-app.use('/artists/', artists);
 
 app.listen(3001, () => {
   console.log('Server listening on port 3001...');

@@ -1,18 +1,31 @@
 import TracksTable from '../components/tracks-table';
 import { connect } from 'react-redux';
-import { fetchTop } from '../store/actions/creators';
+import { fetchUserTopTracks, fetchArtistTopTracks, setSelectedTrack, setTrackPlaying } from '../store/actions/creators';
 
 function mapStateToProps(state) {
   return {
-    topUserTracks: state.top.all,
-    searchResults: state.search.results
+    tracks: state.tracks.tracks,
+    trackPlaying: state.tracks.trackPlaying
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchTopUserTracks() {
-      dispatch(fetchTop('tracks'));
+    fetchUserTopTracks: () => {
+      dispatch(fetchUserTopTracks());
+    },
+    fetchArtistTopTracks: (artistId) => {
+      dispatch(fetchArtistTopTracks(artistId));
+    },
+    selectTrack: (track) => {
+      dispatch(setSelectedTrack(track));
+    },
+    togglePreview: (trackId, playingTrackId) => {
+      if (trackId === playingTrackId) {
+        dispatch(setTrackPlaying(''));
+      } else {
+        dispatch(setTrackPlaying(trackId));
+      }
     }
   }
 }

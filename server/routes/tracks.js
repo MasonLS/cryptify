@@ -3,29 +3,8 @@ const request = require('request');
 
 const router = express.Router();
 
-// get a track's password
-router.get('/password/:trackId', (req, res, next) => {
-  const options = {
-    url: 'https://api.spotify.com/v1/audio-features',
-    headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
-    qs: {
-      ids: req.params.trackId
-    }
-  };
-
-  // get the track's audio features from Spotify
-  request.get(options, (error, response, body) => {
-    if(error) {
-      next(error);
-    } else {
-      // hash the track based on it audio features
-      res.send(body);
-    }
-  });
-});
-
 // get a user's top tracks
-router.get('/top', (req, res, next) => {
+router.get('/top-tracks', (req, res, next) => {
   const options = {
     url: 'https://api.spotify.com/v1/me/top/tracks',
     headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
@@ -64,6 +43,46 @@ router.get('/search/:trackName', (req, res, next) => {
       res.send(body);
     }
   })
+});
+
+// get an artist's top tracks
+router.get('/:artistId/top-tracks', (req, res, next) => {
+  const options = {
+    url: 'https://api.spotify.com/v1/artists/' + req.params.artistId + '/top-tracks',
+    headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
+    qs: {
+      country: req.session.user.country
+    }
+  };
+
+  request.get(options, (error, response, body) => {
+    if(error) {
+      next(error);
+    } else {
+      res.send(body);
+    }
+  });
+});
+
+// get a track's password
+router.get('/password/:trackId', (req, res, next) => {
+  const options = {
+    url: 'https://api.spotify.com/v1/audio-features',
+    headers: { 'Authorization': 'Bearer ' + req.session.user.access_token },
+    qs: {
+      ids: req.params.trackId
+    }
+  };
+
+  // get the track's audio features from Spotify
+  request.get(options, (error, response, body) => {
+    if(error) {
+      next(error);
+    } else {
+      // hash the track based on it audio features
+      res.send(body);
+    }
+  });
 });
 
 module.exports = router;
