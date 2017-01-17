@@ -56,6 +56,7 @@
     "bootstrap": "^3.3.7",
     "client-sessions": "^0.7.0",
     "clipboard": "^1.5.16",
+    "concurrently": "^3.1.0",
     "express": "^4.8.0",
     "history": "^4.5.1",
     "isomorphic-fetch": "^2.2.1",
@@ -74,13 +75,12 @@
     "request": "^2.79.0"
   },
   "scripts": {
-    "start": "node ./server",
+    "start": "concurrently \"npm run server\" \"npm run start-dev\"",
     "start-dev": "node scripts/start.js",
     "server": "nodemon --watch server ./server",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -123,5 +123,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

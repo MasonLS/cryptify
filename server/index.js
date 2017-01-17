@@ -32,9 +32,8 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
-app.use('/static', express.static('../build'));
-
 if (env.NODE_ENV === 'production') {
+  app.use('/static', express.static('../build'));
 // redirect to login if not authenticated
   app.use((req, res, next) => {
     if (req.path !== '/' && !req.session.user) {
@@ -56,7 +55,7 @@ if (env.NODE_ENV === 'production') {
 }
 
 app.use((err, req, res, next, error) => {
-  console.error(err.stack, 'Here!');
+  console.error(err.stack);
 });
 
 app.listen(port, () => {
