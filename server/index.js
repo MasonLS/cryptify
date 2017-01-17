@@ -47,11 +47,11 @@ if (env.NODE_ENV === 'production') {
 app.use('/auth/', auth);
 app.use('/tracks/', tracks);
 
-if (env.NODE_ENV === 'production') {
+// if (env.NODE_ENV === 'production') {
   app.use('/*', (req, res) => {
     res.sendFile(path.join(__dirname, './build', 'index.html'));
   });
-}
+// }
 
 app.use((err, req, res, next, error) => {
   console.error(err.stack);
