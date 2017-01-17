@@ -7,7 +7,7 @@ const router = express.Router();
 
 const clientId = env.SPOTIFY_CLIENT_ID;
 const clientSecret = env.SPOTIFY_CLIENT_SECRET;
-const redirectURI = env.NODE_SERVER + '/auth/callback';
+const redirectURI = 'http://localhost:3001/auth/callback';
 
 router.get('/callback', (req, res, next) => {
   const code = req.query.code || null;

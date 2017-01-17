@@ -3,8 +3,7 @@ import { Grid, Row, Col, PageHeader, Alert } from 'react-bootstrap';
 
 class Login extends Component {
   render() {
-    // const redirect = encodeURIComponent('http://localhost:3001/auth/callback');
-    const redirect = encodeURIComponent('https://cryptify.herokuapp.com/auth/callback');
+    const redirect = encodeURIComponent('http://localhost:3001/auth/callback');
     const OAuthLink = 'https://accounts.spotify.com/authorize?client_id=49859018c9a4462cbb4336259546f1e9&redirect_uri=' + redirect + '&response_type=code&scope=user-top-read%20user-read-private';
     return (
       <Grid>
