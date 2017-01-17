@@ -2,7 +2,7 @@ import initialState from '../state';
 import actionTypes from '../actions/types';
 
 function tracks(state = initialState.tracks, action) {
-  switch(action.type) {
+  switch (action.type) {
     case actionTypes.SET_TRACK_PLAYING:
       return {
         ...state,

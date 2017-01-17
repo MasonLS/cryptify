@@ -99,6 +99,7 @@ export function searchTracks(searchTerm) {
 export function fetchPassword(trackId, why) {
   return function(dispatch) {
     dispatch(requestFromApi(actionTypes.FETCH_PW_REQUEST));
+    dispatch(togglePasswordModal());
     const uri = '/tracks/password/' + trackId + '/' + why;
 
     return fetch(uri, {
@@ -108,7 +109,6 @@ export function fetchPassword(trackId, why) {
     .then(response => response.json())
     .then(password => {
       dispatch(receiveFromApi(actionTypes.FETCH_PW_SUCCESS, password));
-      dispatch(togglePasswordModal());
     })
     .catch(error => {
       dispatch(handleError(actionTypes.FETCH_PW_FAILURE, error));
