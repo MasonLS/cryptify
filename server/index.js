@@ -32,7 +32,7 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
-app.use(express.static(__dirname + '../build'));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 if (env.NODE_ENV === 'production') {
 // redirect to login if not authenticated
@@ -50,13 +50,12 @@ app.use('/tracks/', tracks);
 
 if (env.NODE_ENV === 'production') {
   app.use('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', '/build', 'index.html'));
   });
 }
 
 app.use((err, req, res, next, error) => {
   console.error(err.stack, 'Here!');
-  res.sendStatus(500);
 });
 
 app.listen(port, () => {
