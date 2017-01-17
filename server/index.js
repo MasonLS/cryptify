@@ -9,6 +9,7 @@ const path = require('path');
 const env = require('./env');
 
 const app = express();
+const port = process.env.PORT || '3001';
 
 function generateRandomString(length) {
   let text = '';
@@ -58,6 +59,6 @@ app.use((err, req, res, next, error) => {
   res.sendStatus(500);
 });
 
-app.listen(3001, () => {
-  console.log('Server listening on port 3001...');
+app.listen(port, () => {
+  console.log('Server listening on port', port, '...');
 });
