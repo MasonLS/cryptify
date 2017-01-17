@@ -56,9 +56,9 @@ function determineStrength(popularity) {
   if (popularity < 25) {
     return 'Strong';
   } else if (popularity >= 25 && popularity < 50) {
-    return 'Not very strong';
+    return 'Not very strong. Try choosing something a little more obscure...';
   } else {
-    return 'Weak';
+    return 'Weak. Try choosing a track that is not quite as popular...';
   }
 }
 

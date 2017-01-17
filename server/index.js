@@ -5,10 +5,11 @@ const tracks = require('./routes/tracks');
 const session = require('client-sessions');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
-const generateRandomString = function(length) {
+function generateRandomString(length) {
   let text = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -31,8 +32,26 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
+// redirect to login if not authenticated
+// app.use((req, res, next) => {
+//   if (req.path !== '/' && !req.session.user) {
+//     res.redirect('/');
+//   } else {
+//     next();
+//   }
+// });
+
 app.use('/auth/', auth);
 app.use('/tracks/', tracks);
+
+// app.use('/*', (req, res) {
+//   res.sendFile(path.join(__dirname, './build', 'index.html'));
+// });
+
+app.use((err, req, res, next, error) => {
+  console.error(err.stack);
+  res.sendStatus(500);
+});
 
 app.listen(3001, () => {
   console.log('Server listening on port 3001...');

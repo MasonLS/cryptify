@@ -15,8 +15,7 @@ router.get('/top-tracks', (req, res, next) => {
   };
 
   request.get(options, (error, response, body) => {
-    if(error) {
-      console.log(error);
+    if (error) {
       next(error);
     } else {
       res.send(body);
@@ -38,7 +37,7 @@ router.get('/search/:trackName', (req, res, next) => {
   };
 
   request.get(options, (error, response, body) => {
-    if(error) {
+    if (error) {
       next(error);
     } else {
       res.send(body);
@@ -57,7 +56,7 @@ router.get('/:artistId/top-tracks', (req, res, next) => {
   };
 
   request.get(options, (error, response, body) => {
-    if(error) {
+    if (error) {
       next(error);
     } else {
       res.send(body);
@@ -75,9 +74,8 @@ router.get('/password/:trackId/:why', (req, res, next) => {
     }
   };
 
-  // get the track's audio features from Spotify
   request.get(audioFeatureOptions, (error, response, body) => {
-    if(error) {
+    if (error) {
       next(error);
     } else {
       const audioFeatures = JSON.parse(body).audio_features[0];
@@ -86,14 +84,17 @@ router.get('/password/:trackId/:why', (req, res, next) => {
         headers: { 'Authorization': 'Bearer ' + req.session.user.access_token }
       }
       request.get(audioAnalysisOptions, (error, response, body) => {
-        if(error) {
+        if (error) {
           next(error);
         } else {
           const audioAnalysis = JSON.parse(body);
           const hash = crypto.createHmac('sha256', req.session.user.id);
           const buffer = new Buffer(_.flatten(audioAnalysis.segments.map(segment => segment.pitches)));
+
           hash.update(buffer);
+
           let extraParam;
+
           if (req.params.why === 'vocals') {
             extraParam = audioFeatures.speechiness;
           }
@@ -103,7 +104,9 @@ router.get('/password/:trackId/:why', (req, res, next) => {
           if (req.params.why === 'dancing') {
             extraParam = audioFeatures.danceability;
           }
+
           hash.update(String(extraParam));
+
           res.json(hash.digest('hex').slice(0,16));
         }
       })

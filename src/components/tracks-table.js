@@ -8,6 +8,13 @@ class TracksTable extends Component {
   }
 
   render() {
+    const {
+      tracks,
+      selectTrack,
+      togglePreview,
+      fetchArtistTopTracks
+    } = this.props;
+
     return (
       <Table responsive hover>
         <thead>
@@ -21,7 +28,7 @@ class TracksTable extends Component {
         </thead>
         <tbody>
           {
-            this.props.tracks.map(track => <Track track={track} trackPlaying={this.props.trackPlaying} selectTrack={this.props.selectTrack} togglePreview={this.props.togglePreview} fetchArtistTopTracks={this.props.fetchArtistTopTracks} key={track.id} />)
+            tracks.tracks.map(track => <Track track={track} trackPlaying={track.trackPlaying} selectTrack={selectTrack} togglePreview={togglePreview} fetchArtistTopTracks={fetchArtistTopTracks} key={track.id} />)
           }
         </tbody>
       </Table>

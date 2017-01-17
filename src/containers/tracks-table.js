@@ -4,8 +4,7 @@ import { fetchUserTopTracks, fetchArtistTopTracks, setSelectedTrack, setTrackPla
 
 function mapStateToProps(state) {
   return {
-    tracks: state.tracks.tracks,
-    trackPlaying: state.tracks.trackPlaying
+    tracks: state.tracks
   }
 }
 

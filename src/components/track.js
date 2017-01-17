@@ -15,6 +15,9 @@ class Track extends Component {
     const style = {
       strength: {
         color: determineColor(strength)
+      },
+      links: {
+        color: 'black'
       }
     }
 
@@ -29,11 +32,9 @@ class Track extends Component {
     return (
       <tr>
         <Sound playStatus={playStatus} url={track.preview_url} />
-        <td><a href="#" onClick={(e) => { e.preventDefault(); togglePreview(track.id, this.props.trackPlaying) }}><Glyphicon glyph={track.id === trackPlaying ? 'stop' : 'play'} /></a></td>
-        <td><a href="#" onClick={(e) => { e.preventDefault(); selectTrack(track) }}>{track.name}</a></td>
-        <td>
-          <a href="#" onClick={(e) => { e.preventDefault(); fetchArtistTopTracks(track.artists[0].id) }} key={track.artists[0].id}>{track.artists[0].name}</a>
-        </td>
+        <td><a style={style.links} href="#" onClick={(e) => { e.preventDefault(); togglePreview(track.id, trackPlaying) }}><Glyphicon glyph={track.id === trackPlaying ? 'stop' : 'play'} /></a></td>
+        <td><a style={style.links} href="#" onClick={(e) => { e.preventDefault(); selectTrack(track) }}>{track.name}</a></td>
+        <td><a style={style.links} href="#" onClick={(e) => { e.preventDefault(); fetchArtistTopTracks(track.artists[0].id) }} key={track.artists[0].id}>{track.artists[0].name}</a></td>
         <td>{track.album.name}</td>
         <td style={style.strength}>{Math.abs(100 - track.popularity)}</td>
       </tr>
