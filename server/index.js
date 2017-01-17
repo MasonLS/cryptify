@@ -21,8 +21,6 @@ function generateRandomString(length) {
   return text;
 };
 
-app.use(express.static(__dirname + '../build'));
-
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -34,16 +32,18 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
-if (env.NODE_ENV === 'production') {
-// redirect to login if not authenticated
-  app.use((req, res, next) => {
-    if (req.path !== '/' && !req.session.user) {
-      res.redirect('/');
-    } else {
-      next();
-    }
-  });
-}
+app.use(express.static(__dirname + '../build'));
+
+// if (env.NODE_ENV === 'production') {
+// // redirect to login if not authenticated
+//   app.use((req, res, next) => {
+//     if (req.path !== '/' && !req.session.user) {
+//       res.redirect('/');
+//     } else {
+//       next();
+//     }
+//   });
+// }
 
 app.use('/auth/', auth);
 app.use('/tracks/', tracks);
