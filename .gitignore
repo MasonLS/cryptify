@@ -5,12 +5,3 @@ node_modules
 
 # testing
 coverage
-
-# production
-build
-
-# misc
-env
-.DS_Store
-.env
-npm-debug.log
