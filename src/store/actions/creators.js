@@ -77,22 +77,26 @@ export function fetchArtistTopTracks(artistId) {
 
 export function searchTracks(searchTerm) {
   return function(dispatch) {
-    dispatch(requestFromApi(actionTypes.FETCH_TRACKS_REQUEST));
+    if (searchTerm === '' || searchTerm.split('').every(el => el === ' ')) {
+      dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, []));
+    } else {
+      dispatch(requestFromApi(actionTypes.FETCH_TRACKS_REQUEST));
 
-    return fetch(`/tracks/search/${searchTerm}`, {
-      accept: 'application/json',
-      credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(json => {
-      const tracks = json.tracks.items;
-      dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, tracks));
-      dispatch(setSelectedTrack(tracks[0]));
-      dispatch(setTrackWhy('vocals'));
-    })
-    .catch(error => {
-      dispatch(handleError(actionTypes.FETCH_TRACKS_FAILURE, error));
-    });
+      return fetch(`/tracks/search/${searchTerm}`, {
+        accept: 'application/json',
+        credentials: 'include'
+      })
+      .then(response => response.json())
+      .then(json => {
+        const tracks = json.tracks.items;
+        dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, tracks));
+        dispatch(setSelectedTrack(tracks[0]));
+        dispatch(setTrackWhy('vocals'));
+      })
+      .catch(error => {
+        dispatch(handleError(actionTypes.FETCH_TRACKS_FAILURE, error));
+      });
+    }
   }
 }
 

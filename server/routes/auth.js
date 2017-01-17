@@ -9,7 +9,7 @@ const client_id = '49859018c9a4462cbb4336259546f1e9';
 const client_secret = '661daffd036e43c191ec9a8cf11665f3';
 const redirect_uri = 'http://localhost:3001/auth/callback';
 
-router.get('/callback', (req, res) => {
+router.get('/callback', (req, res, next) => {
 
   const code = req.query.code || null;
 
@@ -37,13 +37,18 @@ router.get('/callback', (req, res) => {
           json: true
         };
 
-        // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          req.session.user = body;
-          req.session.user.access_token = access_token;
-          req.session.user.refresh_token = refresh_token;
-          res.redirect('http://localhost:3000/home');
+          if (!error) {
+            req.session.user = body;
+            req.session.user.access_token = access_token;
+            req.session.user.refresh_token = refresh_token;
+            res.redirect('http://localhost:3000/home');
+          } else {
+            next(error);
+          }
         });
+      } else {
+        next(error);
       }
     });
 
