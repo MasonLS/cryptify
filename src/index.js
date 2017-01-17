@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './components/app';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import './index.css';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import Login from './components/login';
 import { Provider } from 'react-redux';

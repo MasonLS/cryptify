@@ -3,6 +3,9 @@ import { Grid, Row, Col, PageHeader, Alert } from 'react-bootstrap';
 
 class Login extends Component {
   render() {
+    // const redirect = encodeURIComponent('http://localhost:3001/auth/callback');
+    const redirect = encodeURIComponent('https://cryptify.herokuapp.com/auth/callback');
+    const OAuthLink = 'https://accounts.spotify.com/authorize?client_id=49859018c9a4462cbb4336259546f1e9&redirect_uri=' + redirect + '&response_type=code&scope=user-top-read%20user-read-private';
     return (
       <Grid>
         <Row>
@@ -15,7 +18,7 @@ class Login extends Component {
             <small>Don't worry about remembering it: Cryptify will always show you the same password for your chosen track.</small>
             {' '}
             <small>
-            <a style={{ color: 'black', fontWeight: 'bold' }} href="https://accounts.spotify.com/authorize?client_id=49859018c9a4462cbb4336259546f1e9&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2Fauth%2Fcallback&response_type=code&scope=user-top-read%20user-read-private">Log in with Spotify</a> to get started!
+            <a style={{ color: 'black', fontWeight: 'bold' }} href={OAuthLink}>Log in with Spotify</a> to get started!
             </small>
             </PageHeader>
             <Alert bsStyle='danger'>

@@ -6,6 +6,7 @@ const session = require('client-sessions');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
+const env = require('./env');
 
 const app = express();
 
@@ -32,21 +33,25 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
+if (env.NODE_ENV === 'production') {
 // redirect to login if not authenticated
-// app.use((req, res, next) => {
-//   if (req.path !== '/' && !req.session.user) {
-//     res.redirect('/');
-//   } else {
-//     next();
-//   }
-// });
+  app.use((req, res, next) => {
+    if (req.path !== '/' && !req.session.user) {
+      res.redirect('/');
+    } else {
+      next();
+    }
+  });
+}
 
 app.use('/auth/', auth);
 app.use('/tracks/', tracks);
 
-// app.use('/*', (req, res) {
-//   res.sendFile(path.join(__dirname, './build', 'index.html'));
-// });
+if (env.NODE_ENV === 'production') {
+  app.use('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, './build', 'index.html'));
+  });
+}
 
 app.use((err, req, res, next, error) => {
   console.error(err.stack);
