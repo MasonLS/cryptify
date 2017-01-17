@@ -21,7 +21,7 @@ function generateRandomString(length) {
   return text;
 };
 
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '../build'));
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
