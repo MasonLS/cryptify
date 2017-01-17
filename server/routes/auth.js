@@ -1,7 +1,6 @@
 const express = require('express');
 const request = require('request');
 const querystring = require('querystring');
-const cookieParser = require('cookie-parser');
 const env = require('../env');
 
 const router = express.Router();
