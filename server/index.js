@@ -34,22 +34,22 @@ app.use(session({
 
 app.use('/static', express.static('../build'));
 
-// if (env.NODE_ENV === 'production') {
-// // redirect to login if not authenticated
-//   app.use((req, res, next) => {
-//     if (req.path !== '/' && !req.session.user) {
-//       res.redirect('/');
-//     } else {
-//       next();
-//     }
-//   });
-// }
+if (env.NODE_ENV === 'production') {
+// redirect to login if not authenticated
+  app.use((req, res, next) => {
+    if (req.path !== '/' && !req.session.user) {
+      res.redirect('/');
+    } else {
+      next();
+    }
+  });
+}
 
 app.use('/auth/', auth);
 app.use('/tracks/', tracks);
 
 if (env.NODE_ENV === 'production') {
-  app.use('/*', (req, res) => {
+  app.use('/', (req, res) => {
     console.log('Hit');
     res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
   });
