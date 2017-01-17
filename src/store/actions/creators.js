@@ -46,6 +46,7 @@ export function fetchUserTopTracks() {
     .then(response => response.json())
     .then(json => {
       dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, json.items));
+      dispatch(setTrackPlaying(null));
       dispatch(setSelectedTrack(json.items[0]));
       dispatch(setTrackWhy('vocals'));
     })
@@ -66,6 +67,7 @@ export function fetchArtistTopTracks(artistId) {
     .then(response => response.json())
     .then(json => {
       dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, json.tracks));
+      dispatch(setTrackPlaying(null));
       dispatch(setSelectedTrack(json.tracks[0]));
       dispatch(setTrackWhy('vocals'));
     })
@@ -90,6 +92,7 @@ export function searchTracks(searchTerm) {
       .then(json => {
         const tracks = json.tracks.items;
         dispatch(receiveFromApi(actionTypes.FETCH_TRACKS_SUCCESS, tracks));
+        dispatch(setTrackPlaying(null));
         dispatch(setSelectedTrack(tracks[0]));
         dispatch(setTrackWhy('vocals'));
       })
