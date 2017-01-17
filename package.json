@@ -49,6 +49,9 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "client-sessions": "^0.7.0",
