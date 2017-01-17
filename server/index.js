@@ -32,7 +32,7 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
-app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use(express.static(path.join(__dirname, '..', 'build', 'static')));
 
 if (env.NODE_ENV === 'production') {
 // redirect to login if not authenticated
