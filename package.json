@@ -88,8 +88,7 @@
   "bugs": {
     "url": "https://github.com/MasonLS/cryptify/issues"
   },
-  "homepage": "https://github.com/MasonLS/cryptify#readme",
-  "proxy": "http://localhost:3001/",
+  "homepage": "https://cryptify.herokuapp.com",
   "babel": {
     "presets": [
       "react-app"
