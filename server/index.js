@@ -32,7 +32,7 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
-app.use('/static', express.static('build'));
+app.use('/static', express.static('../build'));
 
 // if (env.NODE_ENV === 'production') {
 // // redirect to login if not authenticated
