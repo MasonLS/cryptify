@@ -19,12 +19,8 @@ function mapDispatchToProps(dispatch) {
     selectTrack: (track) => {
       dispatch(setSelectedTrack(track));
     },
-    togglePreview: (trackId, playingTrackId) => {
-      if (trackId === playingTrackId) {
-        dispatch(setTrackPlaying(''));
-      } else {
-        dispatch(setTrackPlaying(trackId));
-      }
+    setTrackPlaying: (track) => {
+      dispatch(setTrackPlaying(track));
     }
   }
 }
