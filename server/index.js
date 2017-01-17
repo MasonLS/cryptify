@@ -49,7 +49,6 @@ app.use('/tracks/', tracks);
 
 if (env.NODE_ENV === 'production') {
   app.use('/', (req, res) => {
-    console.log('Hit');
     res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
   });
 }
