@@ -5,7 +5,8 @@ import { setTrackPlaying, setTrackWhy, fetchPassword } from '../store/actions/cr
 function mapStateToProps(state) {
   return {
     password: state.password,
-    trackPlaying: state.tracks.trackPlaying
+    trackPlaying: state.tracks.trackPlaying,
+    isPlaying: state.tracks.isPlaying
   };
 }
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import TracksTableContainer from '../containers/tracks-table';
-import SearchContainer from '../containers/search';
 import TrackDetailContainer from '../containers/track-detail';
 import PasswordModalContainer from '../containers/password-modal';
 
@@ -15,7 +14,7 @@ class App extends Component {
           </Col>
         </Row>
         <Row>
-          <Col sm={10} mdOffset={1}>
+          <Col style={{overflow: 'scroll', maxHeight: 500}} sm={10} mdOffset={1}>
             <TracksTableContainer />
           </Col>
         </Row>
