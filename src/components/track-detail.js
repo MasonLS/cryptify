@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import TrackForm from './track-form';
-import Sound from 'react-sound';
 
 class TrackDetail extends Component {
   render() {
     const {
       password,
       trackPlaying,
-      togglePreview,
+      setTrackPlaying,
       setTrackWhy,
       generatePassword,
     } = this.props;
     const track = password.track;
 
     if (!track) return null;
-
-    let playStatus;
-
-    if (track.id === trackPlaying) {
-      playStatus = 'PLAYING';
-    } else {
-      playStatus = 'STOPPED';
-    }
 
     return (
       <Row>
@@ -32,7 +23,6 @@ class TrackDetail extends Component {
         <Col sm={6}>
           <Row>
             <Col sm={12}>
-              <Sound playStatus={playStatus} url={track.preview_url} onFinishedPlaying={()=>{ togglePreview('') }}/>
               <h4>Track: {track.name}</h4>
               <h4>Artist: {track.artists[0].name}</h4>
               <h4>Album: {track.album.name}</h4>
@@ -40,7 +30,7 @@ class TrackDetail extends Component {
           </Row>
           <Row>
             <Col sm={12}>
-              <TrackForm trackPlaying={trackPlaying} password={password} generatePassword={generatePassword} togglePreview={togglePreview} setTrackWhy={setTrackWhy} />
+              <TrackForm trackPlaying={trackPlaying} password={password} generatePassword={generatePassword} setTrackPlaying={setTrackPlaying} setTrackWhy={setTrackWhy} />
             </Col>
           </Row>
         </Col>

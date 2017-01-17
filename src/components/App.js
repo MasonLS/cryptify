@@ -3,6 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import TracksTableContainer from '../containers/tracks-table';
 import TrackDetailContainer from '../containers/track-detail';
 import PasswordModalContainer from '../containers/password-modal';
+import PreviewContainer from '../containers/preview';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
           </Col>
         </Row>
         <PasswordModalContainer />
+        <PreviewContainer />
       </Grid>
     );
   }

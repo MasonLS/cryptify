@@ -8,16 +8,26 @@ class TrackForm extends Component {
       trackPlaying,
       password,
       generatePassword,
-      togglePreview,
+      setTrackPlaying,
       setTrackWhy
     } = this.props;
     const {
       track,
       why
     } = password;
+    let isPlaying = false;
+    let trackToPlay = track;
+
+    if (trackPlaying) {
+      isPlaying = track.id === trackPlaying.id;
+    }
+
+    if (isPlaying) {
+      trackToPlay = null;
+    }
 
     return (
-      <form onSubmit={(e) => { e.preventDefault() }}>
+      <div>
         <h4>What do you like best about this track?</h4>
         <FormGroup>
           <Radio inline checked={why === "vocals"} value="vocals" onChange={(e) => { setTrackWhy(e.target.value) }} >The vocals</Radio>
@@ -26,12 +36,12 @@ class TrackForm extends Component {
         </FormGroup>
         <FormGroup>
         <ButtonGroup>
-          <Button onClick={() => { togglePreview(track.id, trackPlaying) }}><Glyphicon glyph={track.id === trackPlaying ? 'stop' : 'play'} />{' '}Preview</Button>
+          <Button onClick={() => { setTrackPlaying(trackToPlay) }}><Glyphicon glyph={isPlaying ? 'stop' : 'play'} />{' '}Preview</Button>
           <Button onClick={() => { generatePassword(track.id, why) }}><Glyphicon glyph="lock" />{' '}Cryptify</Button>
         </ButtonGroup>
         </FormGroup>
         <SearchContainer />
-      </form>
+      </div>
     );
   }
 }

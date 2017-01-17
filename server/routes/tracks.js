@@ -107,7 +107,17 @@ router.get('/password/:trackId/:why', (req, res, next) => {
 
           hash.update(String(extraParam));
 
-          res.json(hash.digest('hex').slice(0,16));
+          const hashedTrackChars = hash.digest('hex').slice(0,16).split('');
+
+          const password = hashedTrackChars.map((char, i) => {
+            if (Number.isNaN(+char) && i % 2 === 0) {
+              return char.toUpperCase();
+            }
+            return char;
+          })
+          .join('');
+
+          res.json(password);
         }
       })
     }

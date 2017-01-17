@@ -5,19 +5,14 @@ import { setTrackPlaying, setTrackWhy, fetchPassword } from '../store/actions/cr
 function mapStateToProps(state) {
   return {
     password: state.password,
-    trackPlaying: state.tracks.trackPlaying,
-    isPlaying: state.tracks.isPlaying
+    trackPlaying: state.tracks.trackPlaying
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    togglePreview: (trackId, playingTrackId) => {
-      if (trackId === playingTrackId) {
-        dispatch(setTrackPlaying(''));
-      } else {
-        dispatch(setTrackPlaying(trackId));
-      }
+    setTrackPlaying: (track) => {
+      dispatch(setTrackPlaying(track));
     },
     setTrackWhy: (why) => {
       dispatch(setTrackWhy(why));

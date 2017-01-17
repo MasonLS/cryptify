@@ -6,7 +6,7 @@ function tracks(state = initialState.tracks, action) {
     case actionTypes.SET_TRACK_PLAYING:
       return {
         ...state,
-        trackPlaying: action.trackId
+        trackPlaying: action.track
       }
     case actionTypes.SET_SEARCH_TERM:
       return {

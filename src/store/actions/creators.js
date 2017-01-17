@@ -1,10 +1,10 @@
 import actionTypes from './types';
 import fetch from 'isomorphic-fetch';
 
-export function setTrackPlaying(trackId) {
+export function setTrackPlaying(track) {
   return {
     type: actionTypes.SET_TRACK_PLAYING,
-    trackId
+    track
   }
 }
 
