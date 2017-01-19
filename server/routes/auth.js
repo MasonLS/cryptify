@@ -1,13 +1,13 @@
-const express = require('express');
-const request = require('request');
-const querystring = require('querystring');
-const env = require('../env');
+import express from 'express';
+import request from 'request';
+import querystring from 'querystring';
+import env from '../env';
 
 const router = express.Router();
 
 const clientId = env.SPOTIFY_CLIENT_ID;
 const clientSecret = env.SPOTIFY_CLIENT_SECRET;
-const redirectURI = 'http://localhost:3001/auth/callback';
+const redirectURI = env.NODE_SERVER + '/auth/callback';
 
 router.get('/callback', (req, res, next) => {
   const code = req.query.code || null;
@@ -42,11 +42,7 @@ router.get('/callback', (req, res, next) => {
             req.session.user.access_token = accessToken;
             req.session.user.refresh_token = refreshToken;
 
-            if (env.NODE_ENV === 'development') {
-              res.redirect('http://localhost:3000/home');
-            } else {
-              res.redirect('/home');
-            }
+            res.redirect('/home');
           } else {
             next(error);
           }
