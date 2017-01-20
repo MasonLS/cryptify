@@ -1,13 +1,12 @@
 import express from 'express';
 import request from 'request';
 import querystring from 'querystring';
-import env from '../env';
 
 const router = express.Router();
 
-const clientId = env.SPOTIFY_CLIENT_ID;
-const clientSecret = env.SPOTIFY_CLIENT_SECRET;
-const redirectURI = env.NODE_SERVER + '/auth/callback';
+const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+const redirectURI = process.env.NODE_SERVER || 'localhost:300/auth/callback';
 
 router.get('/callback', (req, res, next) => {
   const code = req.query.code || null;
