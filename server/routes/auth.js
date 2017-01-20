@@ -4,9 +4,9 @@ import querystring from 'querystring';
 
 const router = express.Router();
 
-const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientId = process.env.SPOTIFY_CLIENT_ID || '49859018c9a4462cbb4336259546f1e9';
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirectURI = process.env.NODE_SERVER || 'localhost:300/auth/callback';
+const redirectURI = process.env.NODE_SERVER || 'http://localhost:3000/auth/callback';
 
 router.get('/callback', (req, res, next) => {
   const code = req.query.code || null;
@@ -25,6 +25,7 @@ router.get('/callback', (req, res, next) => {
     };
 
     request.post(authOptions, (error, response, body) => {
+      console.log(response.statusCode, body);
       if (!error && response.statusCode === 200) {
         const accessToken = body.access_token,
             refreshToken = body.refresh_token;
