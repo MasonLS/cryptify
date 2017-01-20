@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, PageHeader, Alert } from 'react-bootstrap';
 
-const server = process.env.NODE_SERVER || 'http://localhost:3000';
+const server = 'https://cryptify.herokuapp.com';
 const redirect = encodeURIComponent(server + '/auth/callback');
 const OAuthLink = 'https://accounts.spotify.com/authorize?client_id=49859018c9a4462cbb4336259546f1e9&redirect_uri=' + redirect + '&response_type=code&scope=user-top-read%20user-read-private';
 
