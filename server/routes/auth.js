@@ -1,13 +1,12 @@
-const express = require('express');
-const request = require('request');
-const querystring = require('querystring');
-const env = require('../env');
+import express from 'express';
+import request from 'request';
+import querystring from 'querystring';
 
 const router = express.Router();
 
-const clientId = env.SPOTIFY_CLIENT_ID;
-const clientSecret = env.SPOTIFY_CLIENT_SECRET;
-const redirectURI = 'http://localhost:3001/auth/callback';
+const clientId = process.env.SPOTIFY_CLIENT_ID || '49859018c9a4462cbb4336259546f1e9';
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+const redirectURI = process.env.NODE_SERVER + '/auth/callback' || 'http://localhost:3000/auth/callback';
 
 router.get('/callback', (req, res, next) => {
   const code = req.query.code || null;
@@ -26,6 +25,7 @@ router.get('/callback', (req, res, next) => {
     };
 
     request.post(authOptions, (error, response, body) => {
+      console.log(response.statusCode, body);
       if (!error && response.statusCode === 200) {
         const accessToken = body.access_token,
             refreshToken = body.refresh_token;
@@ -42,11 +42,7 @@ router.get('/callback', (req, res, next) => {
             req.session.user.access_token = accessToken;
             req.session.user.refresh_token = refreshToken;
 
-            if (env.NODE_ENV === 'development') {
-              res.redirect('http://localhost:3000/home');
-            } else {
-              res.redirect('/home');
-            }
+            res.redirect('/home');
           } else {
             next(error);
           }

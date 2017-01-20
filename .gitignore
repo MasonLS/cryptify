@@ -1,6 +1,3 @@
 node_modules
-coverage
-.env
 npm-debug.log
-build
-env.js
+server/env.js
