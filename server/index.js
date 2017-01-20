@@ -32,13 +32,13 @@ app.use(session({
 
 app.use('/auth', authRouter);
 
-app.use((req, res, next) => {
-  if (req.path !== '/' && !req.session.user) {
-    res.redirect('/');
-  } else {
-    next();
-  }
-});
+// app.use((req, res, next) => {
+//   if (req.path !== '/' && !req.session.user) {
+//     res.redirect('/');
+//   } else {
+//     next();
+//   }
+// });
 
 app.use('/tracks', tracksRouter);
 
