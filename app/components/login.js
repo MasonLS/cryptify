@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, PageHeader, Alert } from 'react-bootstrap';
+import env from '../../server/env';
 
 class Login extends Component {
   render() {
-    const redirect = encodeURIComponent('http://localhost:3000/auth/callback');
+    const redirect = encodeURIComponent(env.NODE_SERVER + '/auth/callback');
     const OAuthLink = 'https://accounts.spotify.com/authorize?client_id=49859018c9a4462cbb4336259546f1e9&redirect_uri=' + redirect + '&response_type=code&scope=user-top-read%20user-read-private';
     return (
       <Grid>
